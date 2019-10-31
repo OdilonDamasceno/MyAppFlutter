@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:myapp/pages/main.page.dart';
+import 'package:myapp/pages/reset.password.page.dart';
 
-class LoginPage extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginPage createState() => _LoginPage();
+}
+
+class _LoginPage extends State<Login> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +26,8 @@ class LoginPage extends StatelessWidget {
         ),
         color: Color.fromRGBO(36, 36, 36, 1.0),
         child: ListView(
-          primary: false, //Para aqueles negocin que fica apos chegar no final da pagina
+          primary:
+              false, //Para aqueles negocin que fica apos chegar no final da pagina
           children: <Widget>[
             SizedBox(
               width: 128,
@@ -64,15 +79,19 @@ class LoginPage extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: FlatButton(
                 child: Text('Recuperar senha'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ResetPassword()),
+                  );
+                },
                 textColor: Colors.white,
               ),
             ),
             SizedBox(
               height: 20,
             ),
-
-            /*Container(
+            Container(
               height: 50,
               alignment: Alignment.centerRight,
               decoration: BoxDecoration(
@@ -106,13 +125,15 @@ class LoginPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Main()),
+                      ModalRoute.withName('/')
+                    );
+                  },
                 ),
               ),
-            ),*/
-            FloatingActionButton.extended(
-              label: Image.asset('asset/facebook.png'),
-              onPressed: (){},
             ),
             SizedBox(
               height: 20,
@@ -121,6 +142,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 FloatingActionButton(
+                  heroTag: 'Facebook',
                   backgroundColor: Colors.transparent,
                   elevation: 0.0,
                   child: Image.asset(
@@ -131,6 +153,7 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {},
                 ),
                 FloatingActionButton(
+                  heroTag: 'Google',
                   backgroundColor: Colors.transparent,
                   elevation: 0.0,
                   child: Image.asset(
