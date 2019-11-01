@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myapp/pages/login.page.dart';
+import 'package:odi/src/pages/login/login.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -9,11 +9,12 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
-    Future.delayed(Duration(seconds: 3)).then((_){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Login()));
+    Future.delayed(Duration(seconds: 3)).then((_) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Login()));
     });
   }
 
@@ -27,7 +28,7 @@ class _SplashState extends State<Splash> {
           height: 180,
           child: Image.asset('assets/logo.png'),
         ),
-      ),      
+      ),
     );
   }
 }
