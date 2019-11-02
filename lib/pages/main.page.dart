@@ -6,9 +6,16 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(36, 36, 36, 1),
         leading: Container(
@@ -44,58 +51,73 @@ class _MainState extends State<Main> {
           )
         ],
       ),
-      body: Container(
-        color: Color.fromRGBO(36, 36, 36, 1),
-        child: ListView(
-          children: [],
-        ),
-      ),
-      bottomNavigationBar: new BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color.fromRGBO(36, 36, 36, 1),
-        unselectedItemColor: Colors.yellow,
-        selectedItemColor: Colors.deepOrange,
-        items: [
-          BottomNavigationBarItem(
-              title: Title(
-                child: Text(
-                  'Principal',
-                  style: TextStyle(fontSize: 10),
-                ),
-                color: Colors.white,
-              ),
-              icon: Icon(Icons.message)),
-          BottomNavigationBarItem(
-              title: Title(
-                child: Text(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+            canvasColor: Color.fromRGBO(36, 36, 36, 1),
+            primaryColor: Colors.red,
+            textTheme: Theme.of(context).textTheme.copyWith(
+                caption: new TextStyle(
+                    color: Colors
+                        .yellow))), // sets the inactive color of the `BottomNavigationBar`
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          selectedIconTheme: IconThemeData(color: Colors.deepOrange, size: 30,),
+          unselectedIconTheme: IconThemeData(color: Colors.yellow, size: 25,),
+          selectedFontSize: 12,
+          selectedLabelStyle: TextStyle(color: Colors.deepOrange, fontSize: 12,),
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                title: Text('Principal'), icon: Icon(Icons.message)),
+            BottomNavigationBarItem(
+                title: Text(
                   'Notícias',
-                  style: TextStyle(fontSize: 10),
                 ),
-                color: Colors.white,
-              ),
-              icon: Icon(Icons.notifications)),
-          BottomNavigationBarItem(
-              title: Title(
-                child: Text(
+                icon: Icon(Icons.notifications)),
+            BottomNavigationBarItem(
+                title: Text(
                   'Pesquisar',
-                  style: TextStyle(fontSize: 10),
                 ),
-                color: Colors.white,
-              ),
-              icon: Icon(Icons.search)),
-          BottomNavigationBarItem(
-              title: Title(
-                child: Text(
-                  'Seu perfil',
-                  style: TextStyle(fontSize: 10),
+                icon: Icon(Icons.search)),
+            BottomNavigationBarItem(
+                title: Text(
+                  'Seu Perfil',
                 ),
-                color: Colors.deepOrange,
-              ),
-              icon: Icon(
-                Icons.account_circle,
-              )),
-        ],
+                icon: Icon(
+                  Icons.account_circle,
+                )),
+          ],
+        ),
       ),
     );
   }
+
+  List _widgetOptions = [
+    Container(
+      color: Color.fromRGBO(36, 36, 36, 1),
+      child: ListView(
+        children: [],
+      ),
+    ),
+    Container(
+      color: Color.fromRGBO(36, 36, 36, 1),
+      child: ListView(
+        children: [],
+      ),
+    ),
+    Container(
+      color: Color.fromRGBO(36, 36, 36, 1),
+      child: ListView(
+        children: [],
+      ),
+    ),
+    Container(
+      color: Color.fromRGBO(36, 36, 36, 1),
+      child: ListView(
+        children: [],
+      ),
+    ),
+  ];
 }
